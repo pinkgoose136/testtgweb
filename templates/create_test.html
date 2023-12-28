@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Создание теста</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <script>
+            function adjustTextAreaHeight() {
+                var textarea = document.getElementById("testDescription");
+                textarea.style.height = "auto";
+                var newHeight = textarea.scrollHeight;
+                textarea.style.height = newHeight + "px";
+            }
+        </script>
+    </head>
+    <body>
+    
+    <form id="formContainer" method="post" action="{% url 'save_data' %}">
+        {% csrf_token %}
+        <div id="testInfoPart">
+            <h2>Создание теста</h2>
+            <div class="tst1">
+                <label for="testName">Название теста:</label>
+                <input name="name" type="text" id="testName">
+            </div>
+
+            <div class="tst1">
+                <label for="testDescription">Описание:</label>
+                <textarea name="desc" id="testDescription" oninput="adjustTextAreaHeight()"></textarea>
+            </div>
+
+            <div class="tst1" id="tstchh">
+                <div id="tstch">
+                    <div class="tst2">
+                        <input type="radio" id="quizType" name="type" value="quiz" checked>
+                        <label class="quizType" for="quizType">Квиз</label>
+                    </div>
+                    <div class="tst2">
+                        <input type="radio" id="multiDimensionalType" name="type" value="multiDimensional">
+                        <label class="quizType" for="multiDimensionalType">Многомерный</label>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="nextStep()" type="button">Далее</button>
+        </div>
+    
+        <div id="questionPart">
+            <h2>Добавление вопросов</h2>
+            <button onclick="addQuestion()" type="button">Добавить вопрос</button>
+    
+            <div id="questionsSection">
+            </div>
+            
+            <button onclick="start()" type="button">Назад</button>
+            <button onclick="showResults()" type="button">Далее</button>
+        </div>
+    
+        <div id="resultsPart">
+            <h2>Результаты</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Начальное значение %</th>
+                        <th>Конечное значение %</th>
+                        <th>Результат</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTable">
+                </tbody>
+            </table>
+    
+            <button onclick="addResultRow('x', 'd')" type="button">Добавить результат</button>
+            <button onclick="nextStep()" type="button">Назад</button>
+            <button type="submit">Завершить</button>
+        </div>
+    </form>
+
+</body>
+<script src="{% static 'js/create.js' %}"></script>
+</html>

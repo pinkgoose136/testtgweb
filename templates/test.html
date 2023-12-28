@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Detail</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style3.css' %}">
+</head>
+
+<body>
+    {% csrf_token %}
+    <div id="test">
+        <div id="test_info">
+            <h3 id="test_title">{{ a.0.name }}</h3>
+            <p id="test_desc">{{ a.0.desc }}</p>
+            <button onclick="qu(1)">Начать</button>
+        </div>
+
+        <div id="question" style="display: none;">
+            <h2 id="quetitl"></h2>
+            <div id="answers">
+            </div>
+        </div>
+
+        <div id="result" style="display: none;">
+            <h2 id="restilt"></h2>
+            <h3 id="resu"></h3>
+        </div>
+    </div>
+    <script>
+        let tes = JSON.parse(`{{ q |safe }}`);
+        siz = Object.keys(tes).length
+        let numQ = 1
+        res = 0
+
+        let results= JSON.parse(`{{ r |safe }}`);
+
+        function qu(nu){
+            document.getElementById('test_info').style.display = 'none'
+            document.getElementById('question').style.display = 'block'
+            let ans = document.getElementById('answers')
+            ans.innerHTML = ''
+            let titl = document.getElementById('quetitl')
+            titl.innerHTML = ''
+            if (nu <= siz){
+                let que = tes[nu]
+                titl.innerHTML = que['info']['que']
+                let r = que['info']['right']
+                Object.keys(que['answers']).forEach(a =>{
+                    an = document.createElement('div');
+                    an.innerHTML = que['answers'][a];
+                    an.classList.add('answer')
+                    an.id = a;
+                    an.addEventListener('click', function(element) {
+                        let idi = element.target.id;
+                        if (r == idi) {
+                            res++;
+                            element.target.classList.add('green');
+                            setTimeout(() => {
+                                element.target.classList.remove('green');
+                                numQ++;    
+                                qu(numQ);
+                            }, 500);
+                        } else {
+                            element.target.classList.add('red');
+                            setTimeout(() => {
+                                element.target.classList.remove('red');
+                                numQ++;    
+                                qu(numQ);
+                            }, 500);
+                        }
+                    });
+                    ans.appendChild(an)
+                })
+            }
+            else{
+                document.getElementById('question').style.display = 'none'
+                document.getElementById('result').style.display = 'block'
+                let resti = document.getElementById('restilt')
+                let resu = document.getElementById('resu')
+                let rslt = (res/siz)*100
+                results.forEach(q =>{
+                    if (rslt >= q[0] && rslt <= q[1]){
+                        resti.innerHTML = 'Результат: ' + rslt.toFixed(1) + '%'
+                        resu.innerHTML = q[2]
+                    }
+                })
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>

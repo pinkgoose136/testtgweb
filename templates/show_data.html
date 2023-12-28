@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Отображение данных</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles2.css' %}">
+</head>
+<body>
+    <div id="test">
+        <div id="test_info">
+            <h3 id="test_title"></h3>
+            <p id="test_desc"></p>
+            <p id="test_type"></p>
+        </div>
+    
+        <div id="questionsContainer"></div>
+        <table id="tableContainer"></table>
+    </div>
+
+    <script>
+        var a = JSON.parse('{{ a|safe }}')[0]
+        var b = JSON.parse('{{ b|safe }}')
+        var c = JSON.parse('{{ c|safe }}')
+        var d = JSON.parse('{{ d|safe }}')
+
+        let test_title = document.getElementById('test_title').innerHTML = a['name']
+        let test_desc = document.getElementById('test_desc').innerHTML = a['desc']
+        let test_type = document.getElementById('test_type').innerHTML = a['type']
+
+        let table2 = document.getElementById('questionsContainer')
+        b.forEach(e =>{
+            let newQuestion = document.createElement('div')
+            newQuestion.id = "question_" + e['question_id']
+            let Qtitle = document.createElement('h3')
+            Qtitle.innerHTML = e['question']
+            let answers_block = document.createElement('div')
+            answers_block.classList.add('answers_blocks')
+            answers_block.id = "answers_" + e['question_id']
+
+            newQuestion.appendChild(Qtitle)
+            newQuestion.appendChild(answers_block)
+            table2.appendChild(newQuestion)
+        })
+
+        c.forEach(e =>{
+            let answers_block = document.getElementById('answers_'+e['question_id'])
+            let ansD = document.createElement('div')
+            ansD.id = "answer_" + e['question_id'] + "_" + e['answer_id']
+            ansD.innerHTML = e['answer']
+
+            answers_block.appendChild(ansD)
+        })
+
+        b.forEach(e =>{
+            let newQuestion = document.getElementById('question_'+e['question_id'])
+            let right = e['right']
+            let ansD = document.getElementById("answer_" + e['question_id'] + "_" + right)
+            ansD.style.backgroundColor = 'green'
+        })
+
+        let table = document.getElementById('tableContainer')
+        d.forEach(e =>{
+            let newRow = document.createElement('tr')
+            newRow.id = 'res_'+e['res_id']
+            let tdds = ['min', 'max', 'text']
+            tdds.forEach(ee =>{
+                let td = document.createElement('td')
+                td.innerHTML = e[ee]
+                newRow.appendChild(td)
+            })
+
+            table.appendChild(newRow)
+        })
+        
+    </script>
+</body>
+</html>

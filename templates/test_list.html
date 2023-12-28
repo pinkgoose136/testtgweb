@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список тестов</title>
+</head>
+<body>
+
+    <ul>
+        {% for test in a %}
+            <li><a href="../test?id={{ test.test_id }}">{{ test.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

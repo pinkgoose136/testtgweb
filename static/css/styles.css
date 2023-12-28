@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+#formContainer {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.questionBlock {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f4f4f4;
+}
+
+.questionTitle {
+cursor: pointer;
+font-weight: bold;
+background-color: #dbdbdb;
+padding: 8px;
+border-radius: 8px;
+}
+
+.questionContent {
+display: none;
+margin-top: 10px;
+}
+
+textarea, input[type="text"] {
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+#questionPart, #resultsPart {
+    display: none;
+}
+
+#testInfoPart, #questionPart, #resultsPart {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.question {
+    width: calc(80% - 20px);
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+.answer {
+    width: calc(50% - 20px);
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+#answers_div{
+    margin-top: 10px;
+}
+
+.radio_ans{
+    width: 20px;
+    height: 20px;
+}
+
+.tbli{
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border: none;
+    padding: 10px;
+}
+
+.tst1{
+    margin: 20px 0;
+}
+
+.tst2{
+    margin: 10px 0;
+}
+
+.quizType{
+    display: inline;
+}
+
+#tstch{
+    text-align: left;
+}
+
+#tstchh{
+    display: flex;
+    justify-content: center;
+}
+
+#testName{
+    font-size: 14px;
+    width: 70%;
+    padding: 6px;
+}
+
+#testDescription{
+    width: 70%;
+    resize: none;
+    padding: 8px;
+    font-size: 14px;
+}
